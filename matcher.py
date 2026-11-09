@@ -1,71 +1,63 @@
-JOB_A_SKILLS = [
-    "oracle integration cloud",
-    "oic",
-    "pl/sql",
-    "java",
-    "python",
-    "json",
-    "soa",
-    "weblogic",
-    "github",
-    "oracle ebs",
-    "oracle"
-]
-
-JOB_B_SKILLS = [
-    "oracle e-business suite",
-    "oracle ebs",
-    "business analyst",
-    "jira",
-    "confluence",
-    "salesforce",
-    "sap",
-    "financial",
-    "finance",
-    "accounting",
-    "o2c",
-    "p2p"
-]
+import re
+import unicodedata
 
 
-def calculate_score(candidate_text, skills):
-    score = 0
+def normalize(text):
+    """Pasa a minúsculas y quita tildes para comparar textos sin importar el formato."""
 
-    text = candidate_text.lower()
+    text = unicodedata.normalize("NFKD", text.lower())
+
+    return "".join(c for c in text if not unicodedata.combining(c))
+
+
+def contains_term(text, term):
+    """True si el término aparece como palabra o frase completa (evita que 'sap' coincida con 'sapiens')."""
+
+    pattern = r"(?<![a-z0-9])" + re.escape(normalize(term)) + r"(?![a-z0-9])"
+
+    return re.search(pattern, text) is not None
+
+
+def score_job(candidate_text, skills):
+    """Calcula el puntaje (0-100) ponderado por el peso de cada habilidad encontrada."""
+
+    text = normalize(candidate_text)
+
+    matched, missing = [], []
 
     for skill in skills:
-        if skill.lower() in text:
-            score += 10
 
-    return min(score, 100)
+        if any(contains_term(text, alias) for alias in skill["aliases"]):
+            matched.append(skill["name"])
+        else:
+            missing.append(skill["name"])
+
+    total_weight = sum(skill["weight"] for skill in skills)
+
+    matched_weight = sum(skill["weight"] for skill in skills if skill["name"] in matched)
+
+    score = round(matched_weight * 100 / total_weight) if total_weight else 0
+
+    return {"score": score, "matched": matched, "missing": missing}
 
 
-def classify_candidate(candidate_text):
+def classify(scores, threshold):
+    """Recomienda los cargos cuyo puntaje alcanza el umbral: 'A', 'B', 'Both' o 'Neither'."""
 
-    job_a_score = calculate_score(
-        candidate_text,
-        JOB_A_SKILLS
-    )
+    fits = [job for job, result in scores.items() if result["score"] >= threshold]
 
-    job_b_score = calculate_score(
-        candidate_text,
-        JOB_B_SKILLS
-    )
+    if len(fits) > 1:
+        return "Both"
 
-    if job_a_score >= 50 and job_b_score >= 50:
-        classification = "Both"
+    if fits:
+        return fits[0]
 
-    elif job_a_score > job_b_score:
-        classification = "Job A"
+    return "Neither"
 
-    elif job_b_score > job_a_score:
-        classification = "Job B"
 
-    else:
-        classification = "Neither"
+def classify_candidate(candidate_text, jobs, threshold):
+    """Evalúa un candidato contra todos los cargos configurados."""
 
-    return {
-        "job_a_score": job_a_score,
-        "job_b_score": job_b_score,
-        "classification": classification
-    }
+    scores = {job_id: score_job(candidate_text, job["skills"]) for job_id, job in jobs.items()}
+
+    return {"scores": scores, "classification": classify(scores, threshold)}

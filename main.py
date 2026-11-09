@@ -1,55 +1,83 @@
+import argparse
+import json
 import os
 
-from pdf_reader import read_pdf
 from matcher import classify_candidate
-from report_generator import generate_report
+from pdf_reader import read_pdf
+from profile_parser import parse_profile
+from report_generator import generate_csv, generate_html, generate_markdown
 
 
-candidates_folder = "input/candidates"
+def load_config(path):
 
-results = []
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
 
 
-for file in os.listdir(candidates_folder):
+def analyze(candidates_folder, config):
+    """Lee cada PDF de candidatos, lo evalúa contra los cargos y ordena los resultados."""
 
-    if file.endswith(".pdf"):
+    jobs = config["jobs"]
 
-        pdf_path = os.path.join(
-            candidates_folder,
-            file
-        )
+    threshold = config["fit_threshold"]
 
-        candidate_text = read_pdf(pdf_path)
+    results = []
 
-        result = classify_candidate(
-            candidate_text
-        )
+    for file in sorted(os.listdir(candidates_folder)):
 
-        result["candidate"] = file
+        if not file.lower().endswith(".pdf"):
+            continue
+
+        text = read_pdf(os.path.join(candidates_folder, file))
+
+        if not text.strip():
+            print(f"Aviso: no se pudo leer texto de {file}")
+            continue
+
+        result = classify_candidate(text, jobs, threshold)
+
+        result["file"] = file
+
+        result["profile"] = parse_profile(text)
 
         results.append(result)
 
+    # Primero los de mejor coincidencia en su mejor cargo
+    results.sort(key=lambda r: max(s["score"] for s in r["scores"].values()), reverse=True)
 
-results = sorted(
-    results,
-    key=lambda x: (
-        x["job_a_score"] + x["job_b_score"]
-    ),
-    reverse=True
-)
+    return results
 
 
-report = generate_report(results)
+def main():
 
-os.makedirs("output", exist_ok=True)
+    parser = argparse.ArgumentParser(description="Evalúa perfiles de candidatos contra las vacantes configuradas.")
+    parser.add_argument("--candidates", default="input/candidates", help="carpeta con los PDF de candidatos")
+    parser.add_argument("--config", default="config.json", help="archivo con cargos, habilidades y pesos")
+    parser.add_argument("--output", default="output", help="carpeta donde se guardan los reportes")
+    args = parser.parse_args()
 
-with open(
-    "output/report.md",
-    "w",
-    encoding="utf-8"
-) as f:
+    config = load_config(args.config)
 
-    f.write(report)
+    results = analyze(args.candidates, config)
+
+    os.makedirs(args.output, exist_ok=True)
+
+    reports = {
+        "report.md": generate_markdown(results, config["jobs"], config["fit_threshold"]),
+        "report.csv": generate_csv(results, config["jobs"]),
+        "report.html": generate_html(results, config["jobs"], config["fit_threshold"]),
+    }
+
+    for name, content in reports.items():
+
+        # El CSV lleva BOM para que Excel muestre bien las tildes
+        encoding = "utf-8-sig" if name.endswith(".csv") else "utf-8"
+
+        with open(os.path.join(args.output, name), "w", encoding=encoding, newline="") as f:
+            f.write(content)
+
+    print(f"{len(results)} candidatos analizados. Reportes en '{args.output}/': report.md, report.csv y report.html")
 
 
-print("Report generated successfully.")
+if __name__ == "__main__":
+    main()

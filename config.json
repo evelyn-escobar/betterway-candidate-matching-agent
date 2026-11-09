@@ -1,0 +1,38 @@
+{
+  "fit_threshold": 30,
+  "jobs": {
+    "A": {
+      "title": "Integration Developer – Oracle EBS",
+      "file": "job-a-integration-developer-oracle-ebs.pdf",
+      "skills": [
+        {"name": "Oracle EBS", "weight": 3, "aliases": ["oracle ebs", "oracle e-business suite", "e-business suite", "ebs r12", "oracle r12"]},
+        {"name": "Oracle Integration Cloud (OIC)", "weight": 3, "aliases": ["oracle integration cloud", "oic"]},
+        {"name": "SOA / WebLogic", "weight": 2, "aliases": ["soa", "weblogic", "bpel", "osb", "oracle service bus"]},
+        {"name": "PL/SQL", "weight": 2, "aliases": ["pl/sql", "plsql"]},
+        {"name": "Java", "weight": 1, "aliases": ["java"]},
+        {"name": "Python", "weight": 1, "aliases": ["python"]},
+        {"name": "JSON / APIs", "weight": 1, "aliases": ["json", "rest api", "web services", "apis"]},
+        {"name": "Middleware / integraciones", "weight": 2, "aliases": ["middleware", "integration developer", "integrations", "integration"]},
+        {"name": "Unix Shell", "weight": 1, "aliases": ["unix", "shell scripting", "bash"]},
+        {"name": "GitHub / control de versiones", "weight": 1, "aliases": ["github", "git"]},
+        {"name": "Snowflake / Matillion / ETL", "weight": 1, "aliases": ["snowflake", "matillion", "etl"]}
+      ]
+    },
+    "B": {
+      "title": "Business Systems Analyst – Oracle EBS",
+      "file": "job-b-business-systems-analyst-oracle-ebs.pdf",
+      "skills": [
+        {"name": "Oracle EBS", "weight": 3, "aliases": ["oracle ebs", "oracle e-business suite", "e-business suite", "ebs r12", "oracle r12"]},
+        {"name": "Business / Systems Analyst", "weight": 3, "aliases": ["business systems analyst", "business analyst", "systems analyst", "functional consultant", "functional analyst"]},
+        {"name": "Order-to-Cash (O2C)", "weight": 2, "aliases": ["order to cash", "order-to-cash", "o2c", "order management"]},
+        {"name": "Procure-to-Pay (P2P)", "weight": 2, "aliases": ["procure to pay", "procure-to-pay", "p2p", "purchasing"]},
+        {"name": "Financials (GL, AP, AR)", "weight": 2, "aliases": ["financials", "general ledger", "accounts payable", "accounts receivable", "finance", "accounting"]},
+        {"name": "Levantamiento de requerimientos", "weight": 2, "aliases": ["requirements gathering", "requirements", "solution design"]},
+        {"name": "JIRA", "weight": 1, "aliases": ["jira"]},
+        {"name": "Confluence", "weight": 1, "aliases": ["confluence"]},
+        {"name": "Salesforce / SAP / Concur", "weight": 1, "aliases": ["salesforce", "sap", "sap hybris", "concur"]},
+        {"name": "Gestión de proyectos ERP", "weight": 1, "aliases": ["project manager", "project management", "erp implementation", "erp implementations"]}
+      ]
+    }
+  }
+}

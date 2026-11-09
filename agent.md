@@ -20,30 +20,33 @@ input/
 ## Workflow
 
 1. Load all candidate profiles.
-2. Load all job descriptions.
+2. Load the jobs, skills, weights and threshold from `config.json`.
 3. Extract text from PDF files.
-4. Identify relevant skills, technologies, and experience.
-5. Calculate matching scores against each job.
-6. Classify candidates into:
+4. Extract name, headline, location and approximate years of experience.
+5. Match each job's skills (whole words, synonyms, case and accent insensitive).
+6. Calculate a weighted 0-100 score against each job.
+7. Classify candidates (only scores at or above the threshold count):
 
    * Job A
    * Job B
    * Both
    * Neither
-7. Generate a recruiter-friendly report.
+8. Generate recruiter-friendly reports.
 
 ## Output
 
-The generated report is saved in:
+The generated reports are saved in `output/`:
 
-output/report.md
+* `report.html` – visual report with score bars, search, filter and per-candidate detail
+* `report.md` – summary, ranking, matched and missing skills
+* `report.csv` – table for Excel or Google Sheets
 
-The report contains:
+Each candidate includes:
 
-* Candidate name
-* Job A score
-* Job B score
-* Classification
+* Candidate name, headline and approximate experience
+* Score for each job
+* Matched and missing skills
+* Classification and recommendation
 * Ranking
 
 ## Execution

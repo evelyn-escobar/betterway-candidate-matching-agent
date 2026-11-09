@@ -1,0 +1,31 @@
+﻿posicion,candidato,archivo,experiencia_anios,puntaje_A,puntaje_B,recomendacion
+1,Alejandro Pereira Vázquez,candidate-01.pdf,29.2,17,50,Business Systems Analyst – Oracle EBS
+2,Sofía Rodríguez Bermúdez,candidate-04.pdf,25.8,50,11,Integration Developer – Oracle EBS
+3,Pablo Ibáñez Cantera,candidate-28.pdf,16.8,50,28,Integration Developer – Oracle EBS
+4,Rohan Iyer Subramaniam,candidate-17.pdf,6.8,28,44,Business Systems Analyst – Oracle EBS
+5,Sebastián Roselló Pintos,candidate-22.pdf,29.4,28,44,Business Systems Analyst – Oracle EBS
+6,Hernán Lacuesta Bordoni,candidate-26.pdf,19.2,17,39,Business Systems Analyst – Oracle EBS
+7,Diego Martínez Castro,candidate-03.pdf,19.3,33,22,Integration Developer – Oracle EBS
+8,Renata Cabral Brizuela,candidate-10.pdf,19.1,22,33,Business Systems Analyst – Oracle EBS
+9,Ignacio Barreto Aldana,candidate-13.pdf,6.2,28,33,Business Systems Analyst – Oracle EBS
+10,Andrés Saravia Núñez,candidate-18.pdf,20.5,17,33,Business Systems Analyst – Oracle EBS
+11,Adriana Vidal Cuevas,candidate-23.pdf,6.1,17,33,Business Systems Analyst – Oracle EBS
+12,Daniela Larrañaga Pose,candidate-29.pdf,7.6,17,33,Business Systems Analyst – Oracle EBS
+13,Tomás Iglesias Rivero,candidate-09.pdf,12.9,22,28,Ninguno
+14,Manuela Posadas Quintero,candidate-16.pdf,4.7,17,28,Ninguno
+15,Gonzalo Risso Trelles,candidate-20.pdf,11.3,17,28,Ninguno
+16,Esteban Vargas Galarza,candidate-24.pdf,5.3,17,28,Ninguno
+17,Lucía Fernández Méndez,candidate-02.pdf,16.1,22,17,Ninguno
+18,Mateo Silva Cabrera,candidate-05.pdf,11.8,22,0,Ninguno
+19,Valentina Acosta Romero,candidate-06.pdf,11.7,22,6,Ninguno
+20,Joaquín Salgado Núñez,candidate-07.pdf,31.7,22,6,Ninguno
+21,Camila Etcheverry Soto,candidate-08.pdf,9.2,22,11,Ninguno
+22,Florencia Cardozo Lema,candidate-14.pdf,21.3,17,22,Ninguno
+23,Federico Larrosa Ventura,candidate-15.pdf,11.6,0,22,Ninguno
+24,Beatriz Otero Sandoval,candidate-19.pdf,6.2,0,22,Ninguno
+25,Ximena Carballo Tabárez,candidate-21.pdf,19.3,17,22,Ninguno
+26,Bruno Olivera Suárez,candidate-11.pdf,21.4,17,17,Ninguno
+27,Romina Pintado Echeverría,candidate-25.pdf,10.2,17,17,Ninguno
+28,Mariana Acuña Espinosa,candidate-27.pdf,14.8,17,17,Ninguno
+29,Aarav Krishnan Sharma,candidate-30.pdf,16.8,0,17,Ninguno
+30,Pilar Mendoza Castellanos,candidate-12.pdf,14.4,0,11,Ninguno
